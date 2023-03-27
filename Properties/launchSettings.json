@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WalkTMX": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\RedCross\\TMXes\\MergedFromLB.tmx"
+    }
+  }
+}
