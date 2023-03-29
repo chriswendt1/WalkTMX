@@ -24,6 +24,8 @@ static void ProcessTMX(string fileName)
 
     StreamWriter outfile = new(fileName + ".cleanonly.tsv");
 
+    outfile.WriteLine("EN\tES");
+
     // Select all TU elements
     XmlNodeList tuNodes = xmlDoc.SelectNodes("//tu");
 
@@ -46,6 +48,7 @@ static void ProcessTMX(string fileName)
             outfile.WriteLine($"{cleanSourceText}\t{cleanTargetText}");
         }
     }
+    outfile.Close();
 }
 
 static string RemoveMarkup(string tuv)
