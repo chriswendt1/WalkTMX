@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
@@ -43,6 +44,11 @@ static void ProcessTMX(string fileName)
         string cleanSourceText = RemoveMarkup(sourceText);
         string cleanTargetText = RemoveMarkup(targetText);
 
+        if ((string.IsNullOrEmpty(cleanSourceText)) || (string.IsNullOrEmpty(cleanTargetText))) continue;
+        if (cleanSourceText.StartsWith("Ramon")) continue;
+        if (cleanSourceText.StartsWith("Diana")) continue;
+        if (cleanSourceText.StartsWith("Edgar")) continue;
+
         if ((cleanSourceText != sourceText) || (cleanTargetText != targetText))
         {
             outfile.WriteLine($"{cleanSourceText}\t{cleanTargetText}");
@@ -63,8 +69,9 @@ static string RemoveMarkup(string tuv)
 
     plainText = plainText.Replace("\t", " ");
     plainText = plainText.Replace("• ", "");
-    plainText = plainText.StartsWith("- ") ? plainText[2..] : plainText;
-    plainText = plainText.Replace("■ ", "");
+    plainText = plainText.StartsWith("-") ? plainText[1..] : plainText;
+    plainText = plainText.StartsWith("■") ? plainText[1..] : plainText;
+    plainText = plainText.StartsWith("\"") ? "\"" + plainText : plainText;
     plainText = Regex.Replace(plainText, @"\.+", ".");
 
 
